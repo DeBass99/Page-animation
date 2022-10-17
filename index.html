@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
     
     <div class="nav">
         <svg width="216" height="46" viewBox="0 0 216 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,14 +24,14 @@
     </div>
 
     <div class="top-links">
-        <ul class="set-1">
+        <ul class="set-1 cursor-scale small">
             <li class="link">Cleansers</li>
             <li class="link">Mosturizers</li>
             <li class="link">Lotions</li>
             <li class="link">Face Scrubs</li>
         </ul>
 
-        <ul class="set-2">
+        <ul class="set-2 cursor-scale small">
             <li class="link">Community</li>
             <li class="link">About Us</li>
             <li class="link">Contact Us</li>
@@ -44,7 +47,7 @@
     </div>
 
     <div class="bottom-links">
-        <ul class="set-2">
+        <ul class="set-2 cursor-scale small">
             <li class="link">Best Sellers</li>
             <li class="link">Find Your Routine</li>
             <li class="link">Skin Concerns</li>
@@ -55,11 +58,21 @@
     <div class="cta">
 
         <div class="text">
-            <h1>Gentle Care</h1>
+            <h1 class="head cursor-scale">G</h1>
+            <h1 class="head cursor-scale">e</h1>
+            <h1 class="head cursor-scale">n</h1>
+            <h1 class="head cursor-scale">t</h1>
+            <h1 class="head cursor-scale">l</h1>
+            <h1 class="head">e</h1>
+
+            <h1 class="head cursor-scale"> C</h1>
+            <h1 class="head cursor-scale"> a </h1>
+            <h1 class="head cursor-scale"> r </h1>
+            <h1 class="head cursor-scale"> e </h1>
         </div>
 
         <div class="icon">
-            <svg width="97" height="68" viewBox="0 0 97 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="arrow" width="97" height="68" viewBox="0 0 97 68" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M62.751 0.566711L56.0017 7.31601L77.925 29.2871L0.523438 29.2871L0.523438 38.8606L77.925 38.8606L55.9539 60.8318L62.751 67.5811L96.2582 34.0739L62.751 0.566711Z" fill="#060606"/>
                 </svg>                
         </div>
@@ -70,6 +83,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/CSSRulePlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/Draggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 
     <script>
@@ -84,13 +100,108 @@
         }
 
 
-        //Gsap animation
+        //Gsap loading animation
         var rule = CSSRulePlugin.getRule("span::after");
         var tl = gsap.timeline({defaults:{duration:1.5}});
 
         tl.to(rule, {cssRule: { scaleY: 0, duration:.5}})
+        tl.from('.picture', { backgroundSize: "110"}, "-=1")
         tl.from('.nav', {opacity: 0, y: 50, duration: .5}, "-=.5")
         tl.from('.link', {opacity: 0, y: 20, duration: .3, stagger: .1 })
+        tl.from('.head', {scrollTrigger:{
+            trigger: '.head',
+            start: "top bottom",
+            end: "top center",
+            scrub: 1,
+        }, y: 50, opacity: 0, stagger: .3, duration: .5})
+
+        tl.from('.arrow', {scrollTrigger:{
+            trigger: '.arrow',
+            start: "top bottom",
+            end: "top center",
+            scrub: 1,
+        }, x: -80, stagger: .3, duration: .5});
+
+        //gsap image hover animation
+
+        //mouse over
+        var hover = document.querySelector('.picture')
+        $(hover).mousemove(function(event){
+
+        var x = (event.clientX/$(window).width())-0.5;
+        var y = (event.clientY/$(window).height())-0.5;
+
+        TweenLite.to($('.picture'), 0.6, {
+        rotationY:5*x,
+        rotationX:5*y,
+        ease:Power1.easeOut,
+        transformPerspective:500,
+        transformOrigin:"center"
+        });
+        });
+
+        //mouse leave
+        $(hover).mouseleave(function(event) { 
+
+            var x = (event.clientX/$(window).width())+0.5;
+        var y = (event.clientY/$(window).height())+0.5;
+
+        TweenLite.to($('.picture'), 0.6, {
+        rotationY:0*x,
+        rotationX:0*y,
+        ease:Power1.easeOut,
+        transformPerspective:500,
+        transformOrigin:"center"
+        });
+        });
+
+
+        //cursor animation
+        let cursor = document.querySelector(".cursor");
+        let cursor2 = document.querySelector(".cursor2");
+        let cursorScale = document.querySelectorAll(".cursor-scale");
+        let mouseX = 0;
+        let mouseY = 0;
+
+        gsap.to({}, 0.016, {
+        repeat: -1,
+        onRepeat: function () {
+            gsap.set(cursor, {
+            css: {
+                left: mouseX,
+                top: mouseY
+            }
+            });
+            gsap.set(cursor2, {
+            css: {
+                left: mouseX,
+                top: mouseY
+            }
+            });
+        }
+        });
+
+        window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        });
+
+        cursorScale.forEach((link) => {
+        link.addEventListener("mousemove", () => {
+            cursor.classList.add("grow");
+            if (link.classList.contains("small")) {
+            cursor.classList.remove("grow");
+            cursor.classList.add("grow-small");
+            }
+        });
+
+        link.addEventListener("mouseleave", () => {
+            cursor.classList.remove("grow");
+            cursor.classList.remove("grow-small");
+        });
+        });
+                        
+
     </script>
 
 </body>
