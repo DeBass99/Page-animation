@@ -1,8 +1,8 @@
-@import url('http://fonts.cdnfonts.com/css/avenir');
+
 
 body{ 
     background-color: #060606;
-    font-family: 'Avenir', sans-serif;
+    font-family: 'poppins', sans-serif;
     overflow-x: hidden;
     cursor: none;
 }
@@ -38,7 +38,7 @@ ul li{
     list-style: none;
     padding-left: 70px;
     font-style: normal;
-    font-weight: 900;
+    font-weight: 400;
     font-size: 30.793px;
     color: #fff;
 }
@@ -79,7 +79,7 @@ span::after{
 
 h1{ 
     font-style: normal;
-    font-weight: 900;
+    font-weight: 600;
     font-size: 189.377px;
     color: #fff;
 }
