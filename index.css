@@ -1,0 +1,94 @@
+@import url('http://fonts.cdnfonts.com/css/avenir');
+
+body{ 
+    background-color: #060606;
+    font-family: 'Avenir', sans-serif;
+    overflow-x: hidden;
+}
+
+.nav{ 
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 60px;
+}
+
+.top-links{ 
+    padding: 0px 60px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 42px;
+}
+
+.bottom-links{ 
+    margin-top: 680px;
+    padding: 0px 60px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul{ 
+    display: flex;
+    padding: 0px;
+}
+
+ul li{ 
+    list-style: none;
+    padding-left: 70px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30.793px;
+    color: #9B9A9A;
+}
+
+li.link:nth-child(1){ 
+    padding-left: 0px;
+}
+
+
+.picture{ 
+    background-image: url('image.png');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+span::after{ 
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    z-index: 3;
+    transform-origin: top;
+    background-color: #060606;
+}
+
+.cta{ 
+    margin-top: -90px;
+    padding: 0px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1{ 
+    font-style: normal;
+    font-weight: 900;
+    font-size: 189.377px;
+    color: #fff;
+}
+
+.icon{ 
+    width: 193.05px;
+    height: 193.05px;
+    background: #14E0AF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
